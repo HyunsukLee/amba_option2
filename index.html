@@ -1,38 +1,47 @@
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>n-Armed Bandit Simulation</title>
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
+        <style>
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
             background-color: #ffffff;
             border-radius: 5px;
             font-size: 14px;
+            max-width: 100%;
         }
 
         canvas {
+            width: 100%; /* Ensure the chart scales properly */
             max-width: 800px;
         }
 
-		#runCnt {
-			margin-bottom: 20px;
-			margin-right: 10px;
+        #runCnt {
+            margin-bottom: 20px;
+            margin-right: 10px;
             padding: 10px 15px;
             font-size: 14px;
-			width:50px;
-		}
+            width: 50px;
+        }
 
         .button-group {
+            display: flex;
+            flex-wrap: wrap;
             margin-bottom: 20px;
         }
 
         .button-group button {
             margin-right: 10px;
+            margin-bottom: 10px;
             padding: 10px 15px;
             font-size: 14px;
             cursor: pointer;
@@ -42,11 +51,12 @@
             border: 1px solid #c9c9c9;
             padding: 10px;
             margin-bottom: 20px;
+            max-width: 100%;
         }
 
         .input-group table {
             width: 100%;
-            max-width: 500px;
+            max-width: 100%;
         }
 
         .input-group td {
@@ -66,12 +76,39 @@
             background-color: dodgerblue;
         }
 
-        /* 데이터 표시 영역의 높이를 조정하여 스크롤 가능하게 함 */
+        /* Ensure data display scrolls well on mobile */
         #canvasDivVal {
             overflow: auto;
             max-height: 400px;
             border: 1px solid #c9c9c9;
             padding: 10px;
+        }
+
+        /* Adjust canvas container for mobile */
+        #divCanvas {
+            border: 1px solid #c9c9c9;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Media queries for responsiveness */
+        @media screen and (max-width: 768px) {
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .button-group button {
+                width: 100%;
+            }
+
+            #runCnt {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+
+            .input-group table {
+                font-size: 12px;
+            }
         }
     </style>
 
@@ -534,7 +571,7 @@ Q_valuesGlobal[n][selectedSupplier] += (reward - Q_valuesGlobal[n][selectedSuppl
     <h1>n-Armed Bandit Simulation</h1>
     <p>Number of suppliers: 5 (A~E), Iterations: Variable per Simulation</p>
     <div class="button-group">
-	<input type="number" id="runCnt" value="1" step="1" style="display:none;"/>
+		<input type="number" id="runCnt" value="1" step="1" style="display:none;"/>
         <button id="runSimulation1">Simulation1</button>
         <button id="runSimulation2">Simulation2</button>
         <button id="runSimulation3">Simulation3</button>
